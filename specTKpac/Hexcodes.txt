@@ -1,0 +1,3 @@
+purple : #6a1aa6
+grey : #343434
+button grey: #262626

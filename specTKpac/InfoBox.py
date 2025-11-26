@@ -1,0 +1,117 @@
+import tkinter as tk
+import specSQLpac as SBR
+import specTKpac as DIU
+from PIL import ImageTk,Image
+
+con = SBR.Constance()
+con.initimg()
+
+class infbox(tk.Canvas):
+    global can
+    global polyfera
+    global yscr
+    global TITLECARD
+    global PackFr
+    global opBud
+    global descW
+    global PyP
+    
+    def __init__(self,polyfera,PyP):
+        self.polyfera = polyfera
+        self.PyP = PyP
+        super().__init__(self.polyfera,width = 300,height = 450,scrollregion=(0,0,300,1500),bg = con.grey)
+        
+        self.place(x=0,y=0)
+        
+        self.PackFr = tk.Frame(self,bg = con.grey)
+        self.TITLECARD = tk.Label(self.PackFr,font = ("Comic Sans MS",18,"bold"),bg= con.bgrey,fg = con.purp,borderwidth = 0)
+        self.opBud = tk.Button(self.PackFr,width = 300,height = 75,bg = con.bgrey)
+        self.descW = tk.Label(self.PackFr,bg = con.grey,fg = con.purp,font = ("Comic Sans MS",14,"bold"))
+        
+        self.yscr = tk.Scrollbar(self,orient = "vertical",command=self.yview)
+        self.config(yscrollcommand=self.yscr.set)
+        self.yscr.place(relx=1.0, rely=0, anchor="ne", relheight=1)
+        t = "seggfusdgfjhgqeuyfgyusvgushuguyvcuhuyfguyasfcguysdgdfuygduyfcguasgvuysdgvuyagvuvhydyufbuyvguywdgfvyuwbvcudsguygwebvggdsuygvwdygcuyhdgviyguyhcgyvhvisdagfuyuagivuhsfsihiuyfiuweyiufy8y ytysf ysdgv8ytgsduyvgvufsv 8sdsgc8dsy8v 8ydg 8ywfy9bu8hyduihfiuhdyvgvw8yhqfihuv y87yh979 y8yfywe8fy87 ef8we87ff tywey f8ywey 87fgyewgfygweuyvg8yewgv8ged yt 8we8y v8ywgv8udshvywg y8 gv8ygwyvgdyud dgvgygwe vgwe vyweg8y vg8 vutgyv g8weg8yg8ywdgv8y weg e8yv gwv g 8ye8g vyywge 8vgwe8yvy8we gv8ygwew8yvg 8wdy8gv 8yweg v8yvgwe8 yvwe8yv guy8we gv8yu gwd8yvg uywegyu 8y8we gvugweuy yvvbweuyv cvguwdgvvcuycu weuycyucgyewvc gcyweugv vywegvtyudwguyvuyguyvguywegcywegvyugweuy vgyg y uyguyvg wyevguywgvuygwduyvguywguyv w"
+        self.TestInsertion(t)
+        
+        self.focus_set()
+        self.bind("<Button-5>",self.upscr)
+        self.bind("<Button-4>",self.downscr)
+        self.PackFr.bind("<Button-5>",self.upscr)
+        self.PackFr.bind("<Button-4>",self.downscr)
+        self.TITLECARD.bind("<Button-5>",self.upscr)
+        self.TITLECARD.bind("<Button-4>",self.downscr)
+        self.opBud.bind("<Button-5>",self.upscr)
+        self.opBud.bind("<Button-4>",self.downscr)
+        self.descW.bind("<Button-5>",self.upscr)
+        self.descW.bind("<Button-4>",self.downscr)
+    
+    def upscr(self,event):
+        self.yview_scroll(1, "units")
+    
+    def TestInsertion(self,desc):
+        q = len(desc)
+        Q = ""
+        for i in range(q):
+            if (i+1)%39 == 0:
+                Q = Q + desc[i].lower() + "\n"
+            else:
+                Q += desc[i].lower()
+        #self.descW.config(text = Q)
+        self.create_text((0,0),text = Q,anchor = "nw")
+        
+    def TleInsertion(self,title):
+        q = len(title)
+        Q = ""
+        for i in range(q):
+            if (i+1)%29 == 0:
+                Q = Q + title[i].lower() + "\n"
+            else:
+                Q += title[i].lower()
+        self.TITLECARD.config(text = Q)
+        self.create_text((0,0),text = Q,anchor = "nw")
+    
+    def PacMan(self):
+        self.TITLECARD.pack()
+        self.descW.pack()
+        self.opBud.pack()
+        self.PackFr.place(x = 0,y = 0)
+    
+    def Maker(self,IK):
+        DB = PyP.db_get(IK)
+        desc = PyP.nam_get(IK,DB,"desc")
+        self.TestInsertion(desc)
+        self.buttonman(IK, DB)
+        
+        
+    
+    def buttonman(self,IK,type = "0"):
+        if type == "0" or tyoe == con.anon:
+            pass
+        elif type == con.resto:
+            q = ImageTk.PhotoImage(con.RbudI)
+            self.opBud.config(image = q,command = lambda : self.maker_Func(IK,1))
+            self.opBud.image = q
+        elif type == con.eve:
+            q = ImageTk.PhotoImage(con.EbudI)
+            self.opBud.config(image = q,command = lambda : self.maker_Func(IK,2))
+            self.opBud.image = q
+    
+    def maker_Func(self,IK,type):
+        if type == 1:
+            q = self.PyP.Nam_get(IK,con.resto) # yet to create function
+            DIU.Resta(q,self.PyP)
+        elif type == 2:
+            pass            #do so soon we must
+    
+    def downscr(self,event):
+        self.yview_scroll(-1, "units")
+
+
+# 0 -> notin
+# 1 -> Grass
+# 2 -> Water
+# 3 -> building
+
+
+
