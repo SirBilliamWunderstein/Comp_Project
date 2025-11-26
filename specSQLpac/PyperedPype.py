@@ -1,6 +1,6 @@
 import mysql.connector as dcp
 import pickle as dex
-import specSQLpac.Constance as Constance
+import specSQLpac.constance as Constance
 import specTKpac as LPS
 
 con = Constance.Constance()
@@ -18,7 +18,8 @@ class PyperedPype():
         try:
             self.portbay = dcp.connect(user = Retriever,host = "localhost",password = pas,auth_plugin='mysql_native_password')
         except:
-            return con.incorrect_userpass
+            pass
+            #return con.incorrect_userpass
         
         self.infodat = [Retriever,pas]
         binfil = open("./bindump/ret.dat","wb")

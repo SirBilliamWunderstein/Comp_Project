@@ -5,3 +5,5 @@ from .stdYAYbx import yay
 from .TilLoader import MakTil
 from .ButtonMaster import buiton
 from .InfoBox import infbox
+from .MrCanMan import Buddon,Keys
+from .TilLoader import MakTil

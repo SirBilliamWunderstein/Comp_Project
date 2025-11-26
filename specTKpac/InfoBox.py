@@ -21,11 +21,13 @@ class infbox(tk.Canvas):
         self.PyP = PyP
         super().__init__(self.polyfera,width = 300,height = 450,scrollregion=(0,0,300,1500),bg = con.grey)
         
-        self.place(x=0,y=0)
+        self.place(x=0,y=150)
         
         self.PackFr = tk.Frame(self,bg = con.grey)
         self.TITLECARD = tk.Label(self.PackFr,font = ("Comic Sans MS",18,"bold"),bg= con.bgrey,fg = con.purp,borderwidth = 0)
-        self.opBud = tk.Button(self.PackFr,width = 300,height = 75,bg = con.bgrey)
+        qq = ImageTk.PhotoImage(con.RbudI)
+        self.opBud = tk.Button(self.PackFr,image = qq,width = 300,height = 75,bg = con.bgrey)
+        self.opBud.image = qq
         self.descW = tk.Label(self.PackFr,bg = con.grey,fg = con.purp,font = ("Comic Sans MS",14,"bold"))
         
         self.yscr = tk.Scrollbar(self,orient = "vertical",command=self.yview)
@@ -57,8 +59,8 @@ class infbox(tk.Canvas):
                 Q = Q + desc[i].lower() + "\n"
             else:
                 Q += desc[i].lower()
-        #self.descW.config(text = Q)
-        self.create_text((0,0),text = Q,anchor = "nw")
+        self.descW.config(text = Q)
+        #self.create_text((0,0),text = Q,anchor = "nw")
         
     def TleInsertion(self,title):
         q = len(title)
@@ -72,37 +74,45 @@ class infbox(tk.Canvas):
         self.create_text((0,0),text = Q,anchor = "nw")
     
     def PacMan(self):
-        self.TITLECARD.pack()
-        self.descW.pack()
-        self.opBud.pack()
+        self.TITLECARD.grid(row = 0,column = 0)
+        self.descW.grid(row = 1,column = 0)
+        self.opBud.grid(row = 2,column = 0)
         self.PackFr.place(x = 0,y = 0)
     
     def Maker(self,IK):
         DB = PyP.db_get(IK)
-        desc = PyP.nam_get(IK,DB,"desc")
+        desc = PyP.Nam_get(IK,DB,"desc")
         self.TestInsertion(desc)
         self.buttonman(IK, DB)
         
+        self.PacMan()
         
-    
+    def false_Maker(self):
+        self.TestInsertion("this is a bucket")
+        self.TleInsertion("Are You Sure?")
+        self.buttonman(4)
+        self.PacMan()
+        
     def buttonman(self,IK,type = "0"):
-        if type == "0" or tyoe == con.anon:
+        if type == "0" or type == con.anon:
             pass
         elif type == con.resto:
             q = ImageTk.PhotoImage(con.RbudI)
-            self.opBud.config(image = q,command = lambda : self.maker_Func(IK,1))
+            self.opBud.config(image = q,command = lambda : self.maker_Func(self.opBud.IK,1))
             self.opBud.image = q
+            self.opBud.IK = IK
         elif type == con.eve:
             q = ImageTk.PhotoImage(con.EbudI)
-            self.opBud.config(image = q,command = lambda : self.maker_Func(IK,2))
+            self.opBud.config(image = q,command = lambda : self.maker_Func(self.opBud.IK,2))
+            self.opBud.IK = IK
             self.opBud.image = q
     
     def maker_Func(self,IK,type):
         if type == 1:
-            q = self.PyP.Nam_get(IK,con.resto) # yet to create function
+            q = self.PyP.Nam_get(IK,con.resto,"Title") # yet to create function
             DIU.Resta(q,self.PyP)
         elif type == 2:
-            pass            #do so soon we must
+            pass      #do so soon we must
     
     def downscr(self,event):
         self.yview_scroll(-1, "units")

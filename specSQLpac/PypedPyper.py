@@ -1,7 +1,7 @@
 import mysql.connector as DCP
 import pickle as dex
 import random as rd
-import specSQLpac.Constance as const
+import specSQLpac.constance as const
 
 con = const.Constance()
 

@@ -11,27 +11,26 @@ class buiton(tk.Button):
     global til
     global menbx
     
-    def __init__(self,root,posx,posy,imag,infbox = 0,PyP=0,menbox = 0):
+    def __init__(self,root,posx,posy,imag,infbox,PyP):
         self.tree = root
         self.xx = posx
         self.yy = posy
-        self.menbx = menbox
+        self.infobox = infbox
         self.PyP = PyP
         super().__init__(self.tree,image = imag,highlightthickness = 0,borderwidth = 0,command = self.Box_Loader)
         self.image = imag
     
     def Box_Loader(self):
+        self.tree.place_forget()
         self.fr = tk.Frame(self.tree,width = 700,height = 700)
-        self.root.place_forget()
-        self.fr.place(y = 0,x = 300)
-        self.til = SBR.TilLoader(self.fr,self.xx,self.yy,self.PyP)
-        self.menbx.bbud.config(command = self.Lox_Boader)
-        self.til.twofive()
+        self.fr.place(y = 0,x = 0)
+        self.til = SBR.MakTil(self.fr,self.xx,self.yy,self.PyP,self.infobox)
+        #self.menbx.bbud.config(command = self.Lox_Boader)
     
     def Lox_Boader(self):
         self.root.place(x = 300,y= 0)
         self.fr.destroy()
         self.menbx.bbud.config(command = null)
-    
-    def hoverboard(self):
-        pass
+        
+        
+        
