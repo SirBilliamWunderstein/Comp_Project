@@ -25,12 +25,6 @@ class buiton(tk.Button):
         self.fr = tk.Frame(self.tree,width = 700,height = 700)
         self.fr.place(y = 0,x = 0)
         self.til = SBR.MakTil(self.fr,self.xx,self.yy,self.PyP,self.infobox)
-        #self.menbx.bbud.config(command = self.Lox_Boader)
-    
-    def Lox_Boader(self):
-        self.root.place(x = 300,y= 0)
-        self.fr.destroy()
-        self.menbx.bbud.config(command = null)
         
         
         

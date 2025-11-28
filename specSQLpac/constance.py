@@ -26,7 +26,6 @@ class Constance():
     global Rarrow
     global cartLO
     global mapdat
-    #global ANONbudI
     
 
     def __init__(self):

@@ -5,15 +5,10 @@ import specSQLpac.constance as const
 
 con = const.Constance()
 
-# anonymous list col -> IK Title loc desc
-# event list col -> IK Title location date description
-# resto list col -> IK Title location opening/closingtime description
-# resto IK col -> refnumber Food Price Category(b,l,d,a)
-# Pyper pyper, meant to execute any data creation and manipulation commands, not meant for reading data and displaying on screen
 class PypedPyper():
     global portbay
     global ship
-    global infodat # = [username str,lak str,restoIK list,eventIK list,anonymousIK list]
+    global infodat
     global lak
 
     def __init__(self,use,pas,lak):
@@ -29,7 +24,7 @@ class PypedPyper():
         if Q == None:
             return con.lakmismatch # cant use return here, find alternatives
         elif Q[0] == use:
-            binfil = open("../bindump/LAK.dat","w+b")
+            binfil = open("./bindump/LAK.dat","w+b")
             self.ship.execute("select * from {}".format(lak,))
             while True:
                 Q = self.ship.fetchone()
@@ -59,7 +54,7 @@ class PypedPyper():
         self.ship.execute("delete from MesReq where IK = {} and user = {}".format(IK,user))
         self.portbay.commit()
 
-    def resto_create(self,Title,menu,loc,opclo,desc): # self,str,dict(name:[price,category]),specialized location format,str
+    def resto_create(self,Title,menu,loc,opclo,desc): 
         self.ship.execute("use {}".format(con.resto,))
         Q = self.IK_Get()
 
@@ -69,7 +64,7 @@ class PypedPyper():
             if i[0] == Q:
                 Q = self.IK_Get()
                 break
-        self.ship.execute("insert into rlist values({},{},{},{},{})".format(Q,Title,loc.get(),opclo,desc)) # make the location class with the location 
+        self.ship.execute("insert into rlist values({},{},{},{},{})".format(Q,Title,loc.get(),opclo,desc)) 
         self.infodat[2].append(Q)
 
         self.ship.execute("create table {}(id int,food str,price int,cat varchar(1))".format(Q,))

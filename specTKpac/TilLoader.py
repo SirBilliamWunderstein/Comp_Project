@@ -48,26 +48,20 @@ class MakTil():
                 self.bdit[s] = localbutton(self.polyfera,i,timag,self.infobox)
                 self.bdit[s].cdse = i
                 self.bdit[s].image = timag
-                self.bdit[s].bind("<Button-1>" ,self.printer)
                 s += 1
             print(self.bdit)
         self.plac_button()
-    
-    def printer(self,event):
-        print("yay")
     
     def plac_button(self):
         for i in list(self.bdit.keys()):
             self.bdit[i].place(x = ((i-1)%5)*120 - 1,y = ((i-1)//5)*120 - 1)
 
     def image_get(self,ip,s):
-        #le = 0
         if ip == 1:
             num = rd.randint(0,1)
             return con.grassL[num]
         elif ip == 2:
-            num = rd.randint(0,4)
-            return con.waterL[num]
+            return con.waterL
         elif ip == 3:
             return con.buildL
         else:
@@ -76,21 +70,9 @@ class MakTil():
                 lee = con.rIc
             elif PyP.db_Get(IK) == con.eve:
                 lee = con.eIc
-                #le = 2
             elif PyP.db_Get(IK) == con.anon:
                 lee = Image.open("./Icon/" + ip + ".png")
-                #le = 1
             return lee
-
-    def clicke(self,ip):
-        try:
-            if ip == 1 or ip == 2 or ip == 3:
-                pass
-            else:
-                self.infobox.Maker(ip)
-        except:
-            self.infobox.Maker(ip)
-
 
 class localbutton(tk.Button):
     def __init__(self,polyfera,coma,timag,infobox):
@@ -107,12 +89,6 @@ class localbutton(tk.Button):
                 self.infobox.Maker(ip)
         except:
             self.infobox.Maker(ip)
-
-# 1 -> Grass 
-# 2 -> Ocean
-# 3 -> Buildings
-# 4 -> Resto
-# 5 -> Event
 
 
 

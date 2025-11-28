@@ -5,11 +5,11 @@ import specTKpac as LPS
 
 con = Constance.Constance()
 
-# mesrel col -> IK user
+
 class PyperedPype():
     global portbay
     global ship
-    global infodat # [user,pas]
+    global infodat
     global restoIK
     global eventIK
     global anonIK
@@ -19,7 +19,6 @@ class PyperedPype():
             self.portbay = dcp.connect(user = Retriever,host = "localhost",password = pas,auth_plugin='mysql_native_password')
         except:
             pass
-            #return con.incorrect_userpass
         
         self.infodat = [Retriever,pas]
         binfil = open("./bindump/ret.dat","wb")
@@ -209,7 +208,7 @@ class PyperedPype():
         q = dex.load(bin)
         for i in Q:
             if i[1] != q[i[0]]:
-                binfil = open("../Icon/"+i[0]+".png","wb")
+                binfil = open("./Icon/"+i[0]+".png","wb")
                 self.ship.execute("select * from {}".format(i[0],))
                 while True:
                     S = self.ship.fetchone()
@@ -219,7 +218,7 @@ class PyperedPype():
                 binfil.close()
                 print("Icon Updated")
             elif i[1] not in q.keys():
-                binfil = open("../Icon/"+i[0]+".png","wb")
+                binfil = open("./Icon/"+i[0]+".png","wb")
                 self.ship.execute("select * from {}".format(i[0],))
                 while True:
                     S = self.ship.fetchone()

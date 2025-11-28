@@ -75,7 +75,7 @@ class Resta(tk.Tk):
     global Cbud
 
     def __init__(self,name = "wee",PyP = 0):
-        #self.menu = PyP.fetch_Resto_men(PyP.IK_get(name,con.resto))
+        self.menu = PyP.fetch_Resto_men(PyP.IK_get(name,con.resto))
         self.menu = []
         self.placeholder = 0
         super().__init__()
@@ -84,9 +84,9 @@ class Resta(tk.Tk):
         self.config(background = con.grey)
         self.geometry("1300x450")
         self.resizable(False,False)
-        #self.creat_menu()
+
         self.MList = []
-        self.test_buddon()
+        self.creat_menu()
         self.plac_button()
         
         q = ImageTk.PhotoImage(con.Larrow)
@@ -132,19 +132,6 @@ class Resta(tk.Tk):
             self.plac_button()
         else:
             pass
-    
-    def movtest(self):
-        for i in self.MList:
-            i.destroy()
-        self.MList = []
-        self.test_buddon("wifenloof")
-        self.plac_button()
-        pass
-    
-    def test_buddon(self,q = "whenimetcha"):
-        for i in range(8):
-            self.MList.append(SBR.MBlock(self,q,500,1,"b",self.cart)) 
-        pass
         
     def movL(self):
         if self.placeholder != 0:
