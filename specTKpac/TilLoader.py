@@ -58,7 +58,7 @@ class MakTil():
     
     def plac_button(self):
         for i in list(self.bdit.keys()):
-            self.bdit[i].place(x = ((i-1)%5)*120,y = ((i-1)//5)*120)
+            self.bdit[i].place(x = ((i-1)%5)*120 - 1,y = ((i-1)//5)*120 - 1)
 
     def image_get(self,ip,s):
         #le = 0

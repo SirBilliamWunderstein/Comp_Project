@@ -27,11 +27,18 @@ class PyperedPype():
         binfil.close()
 
         try:
-            binfil = open("../Icon/Smakefile.dat","rb")
+            binfil = open("./Icon/Smakefile.dat","rb")
             self.IconUpdate(binfil)
             binfil.close()
         except:
             self.First_Icon_Run()
+        
+        try:
+            binfil = open("./bindump/mapdat/Smakefile.dat","rb")
+            self.MapUpdate(binfil)
+            binfil.close()
+        except:
+            self.First_Map_Run()
         
         self.fetch_IK()
 
@@ -96,9 +103,9 @@ class PyperedPype():
         nam = recev + ":" + self.infodat[0]
         self.ship.execute("create table {}(desc varchar(250),loc varchar(100))".format(nam,))
         self.portbay.commit()
-        self.ship.execute("insert into {} values({},{})".format(nam,standardizedmes,address))
+        self.ship.execute("insert into {} values(\"{}\",\"{}\")".format(nam,standardizedmes,address))
         self.portbay.commit()
-        self.ship.execute("insert into MesRel values({},{})".format(recev,self.infodat[0]))
+        self.ship.execute("insert into MesRel values(\"{}\",\"{}\")".format(recev,self.infodat[0]))
         self.portbay.commit()
 
         fil = open("./bindump/LOGDATA.txt","a")
@@ -117,7 +124,7 @@ class PyperedPype():
     def Postriever(self,IK):
         self.ship.execute("use {}".format(con.eve,))
         self.ship.execute("select * from {}".format(IK))
-        binfil = open(IK+".png","wb")
+        binfil = open("./Pic/"+IK+".png","wb")
         try:
             while True:
                 q = self.ship.fetchone()
@@ -128,6 +135,7 @@ class PyperedPype():
             binfil.close()
             return con.success
         except:
+            binfil.close()
             return con.failed
 
     def First_Icon_Run(self):
@@ -222,3 +230,64 @@ class PyperedPype():
                 print("Icon Updated")
             else:
                 print("Icon To Date")
+        S = {}
+        for i in Q:
+            S[i[0]] = i[1]
+        dex.dump(S,binfil)
+        binfil.close()
+    
+    def First_Map_Run(self):
+        self.ship.execute("use {}".format(con.mapdat))
+        self.ship.execute("select IK from MapList")
+
+        Q = self.ship.fetchall()
+        for i in Q:
+            binfil = open("./bindump/mapdat/"+i[0]+".png","wb") # check for .. or .
+            self.ship.execute("select * from {}".format(i[0],))
+            while True:
+                S = self.ship.fetchone()
+                if S == None:
+                    break
+                binfil.write(S[0].to_byte(1,"big"))
+            binfil.close()
+        
+        binfil = open("./bindump/mapdat/Smakefile.dat")
+        self.ship.execute("select * from Maplist")
+        Q = self.ship.fetchall()
+        S = {}
+        for i in Q:
+            S[i[0]] = i[1]
+        dex.dump(S,binfil)
+        binfil.close()
+    
+    def MapUpdate(self,bin):
+        self.ship.execute("use {}".format(con.mapdat,))
+        self.ship.execute("select * from MapList")
+        Q = self.ship.fetchall()
+        q = dex.load(bin)
+        for i in Q:
+            if i[1] != q[i[0]]:
+                binfil = open("./bindump/mapdat/"+i[0]+".dat","wb")
+                self.ship.execute("select * from {}".format(i[0],))
+                while True:
+                    S = self.ship.fetchone()
+                    if S == None:
+                        break
+                    binfil.write(S[0].to_byte(1,"big"))
+                binfil.close()
+            elif i[1] not in q.keys():
+                binfil = open("./bindump/mapdat/"+i[0]+".png","wb")
+                self.ship.execute("select * from {}".format(i[0],))
+                while True:
+                    S = self.ship.fetchone()
+                    if S == None:
+                        break
+                    binfil.write(S[0].to_byte(1,"big"))
+                binfil.close()
+            else:
+                pass
+        S = {}
+        for i in Q:
+            S[i[0]] = i[1]
+        dex.dump(S,binfil)
+        binfil.close()

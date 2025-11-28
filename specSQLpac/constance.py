@@ -25,6 +25,7 @@ class Constance():
     global Larrow
     global Rarrow
     global cartLO
+    global mapdat
     #global ANONbudI
     
 
@@ -36,6 +37,7 @@ class Constance():
         self.eve = "EventDB"
         self.resto = "RestaurantDB"
         self.reqb = "DeliverRequestDB"
+        self.mapdat = "MapFileDatabase"
         self.success = "waids"
         self.failed = "sdiaw"
         self.grey = "#343434"

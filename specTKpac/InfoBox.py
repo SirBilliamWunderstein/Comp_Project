@@ -32,9 +32,9 @@ class infbox(tk.Canvas):
         
         self.yscr = tk.Scrollbar(self,orient = "vertical",command=self.yview)
         self.config(yscrollcommand=self.yscr.set)
-        self.yscr.place(relx=1.0, rely=0, anchor="ne", relheight=1)
-        t = "seggfusdgfjhgqeuyfgyusvgushuguyvcuhuyfguyasfcguysdgdfuygduyfcguasgvuysdgvuyagvuvhydyufbuyvguywdgfvyuwbvcudsguygwebvggdsuygvwdygcuyhdgviyguyhcgyvhvisdagfuyuagivuhsfsihiuyfiuweyiufy8y ytysf ysdgv8ytgsduyvgvufsv 8sdsgc8dsy8v 8ydg 8ywfy9bu8hyduihfiuhdyvgvw8yhqfihuv y87yh979 y8yfywe8fy87 ef8we87ff tywey f8ywey 87fgyewgfygweuyvg8yewgv8ged yt 8we8y v8ywgv8udshvywg y8 gv8ygwyvgdyud dgvgygwe vgwe vyweg8y vg8 vutgyv g8weg8yg8ywdgv8y weg e8yv gwv g 8ye8g vyywge 8vgwe8yvy8we gv8ygwew8yvg 8wdy8gv 8yweg v8yvgwe8 yvwe8yv guy8we gv8yu gwd8yvg uywegyu 8y8we gvugweuy yvvbweuyv cvguwdgvvcuycu weuycyucgyewvc gcyweugv vywegvtyudwguyvuyguyvguywegcywegvyugweuy vgyg y uyguyvg wyevguywgvuygwduyvguywguyv w"
-        self.TestInsertion(t)
+        #self.yscr.place(relx=1.0, rely=0, anchor="ne", relheight=1)
+        #t = "seggfusdgfjhgqeuyfgyusvgushuguyvcuhuyfguyasfcguysdgdfuygduyfcguasgvuysdgvuyagvuvhydyufbuyvguywdgfvyuwbvcudsguygwebvggdsuygvwdygcuyhdgviyguyhcgyvhvisdagfuyuagivuhsfsihiuyfiuweyiufy8y ytysf ysdgv8ytgsduyvgvufsv 8sdsgc8dsy8v 8ydg 8ywfy9bu8hyduihfiuhdyvgvw8yhqfihuv y87yh979 y8yfywe8fy87 ef8we87ff tywey f8ywey 87fgyewgfygweuyvg8yewgv8ged yt 8we8y v8ywgv8udshvywg y8 gv8ygwyvgdyud dgvgygwe vgwe vyweg8y vg8 vutgyv g8weg8yg8ywdgv8y weg e8yv gwv g 8ye8g vyywge 8vgwe8yvy8we gv8ygwew8yvg 8wdy8gv 8yweg v8yvgwe8 yvwe8yv guy8we gv8yu gwd8yvg uywegyu 8y8we gvugweuy yvvbweuyv cvguwdgvvcuycu weuycyucgyewvc gcyweugv vywegvtyudwguyvuyguyvguywegcywegvyugweuy vgyg y uyguyvg wyevguywgvuygwduyvguywguyv w"
+        #self.TestInsertion(t)
         
         self.focus_set()
         self.bind("<Button-5>",self.upscr)
@@ -112,7 +112,14 @@ class infbox(tk.Canvas):
             q = self.PyP.Nam_get(IK,con.resto,"Title") # yet to create function
             DIU.Resta(q,self.PyP)
         elif type == 2:
-            pass      #do so soon we must
+            q = tk.Tk()
+            q.configure(width = 512,height = 512)
+            check = PyP.Postriever(IK)
+            if check == con.success:
+                imag = ImageTk.PhotoImage(Image.open("./Pic/"+IK+".png"))
+                ss = tk.Label(q,image = imag,width = 512,height = 512)
+                ss.place(x = 0,y = 0)
+                q.mainloop()
     
     def downscr(self,event):
         self.yview_scroll(-1, "units")
