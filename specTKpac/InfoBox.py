@@ -76,7 +76,7 @@ class infbox(tk.Canvas):
         self.PackFr.place(x = 0,y = 0)
     
     def Maker(self,IK):
-        DB = PyP.db_get(IK)
+        DB = self.PyP.db_get(IK)
         desc = PyP.Nam_get(IK,DB,"desc")
         self.TestInsertion(desc)
         self.buttonman(IK, DB)
