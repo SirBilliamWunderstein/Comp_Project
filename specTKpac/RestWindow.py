@@ -76,7 +76,6 @@ class Resta(tk.Tk):
 
     def __init__(self,name = "wee",PyP = 0):
         self.menu = PyP.fetch_Resto_men(PyP.IK_get(name,con.resto))
-        self.menu = []
         self.placeholder = 0
         super().__init__()
         self.cart = Cart(PyP,self.menu,self)
