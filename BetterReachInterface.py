@@ -48,7 +48,7 @@ tree.resizable(False, False)
 
 infbx = SBR.infbox(tree,PyP)
 
-mapImag = "./imsorrylilone.png"
+mapImag = "./GUI/THEMAP.png"
 
 button_do = SBR.Buddon(tree, mapImag,PyP,infbx)
 key_app = SBR.Keys(tree, button_do.canvas)

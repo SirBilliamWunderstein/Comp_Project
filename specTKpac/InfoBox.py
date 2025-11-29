@@ -98,7 +98,7 @@ class infbox(tk.Canvas):
     
     def maker_Func(self,IK,type):
         if type == 1:
-            q = self.PyP.Nam_get(IK,con.resto,"Title") # yet to create function
+            q = self.PyP.Nam_get(IK,con.resto,"Title")
             DIU.Resta(q,self.PyP)
         elif type == 2:
             q = tk.Tk()
