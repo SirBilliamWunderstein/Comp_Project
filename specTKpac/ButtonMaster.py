@@ -22,7 +22,7 @@ class buiton(tk.Button):
     
     def Box_Loader(self):
         self.tree.place_forget()
-        self.fr = tk.Frame(self.tree,width = 700,height = 700)
+        self.fr = tk.Frame(self.tree,width = 600,height = 600)
         self.fr.place(y = 0,x = 0)
         self.til = SBR.MakTil(self.fr,self.xx,self.yy,self.PyP,self.infobox)
         

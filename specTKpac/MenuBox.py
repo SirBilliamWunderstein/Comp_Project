@@ -35,6 +35,6 @@ class MenuBox(tk.Frame):
     def regionreload(self):
         self.key_app.canvas.destroy()
         self.button_do = SBR.Buddon(self.tree, "./GUI/THEMAP.png",self.PyP,self.infobox)
-        self.key_app = SBR.Keys(self.tree, selfbutton_do.canvas)
+        self.key_app = SBR.Keys(self.tree, self.button_do.canvas)
         
         

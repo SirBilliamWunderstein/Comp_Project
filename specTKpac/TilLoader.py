@@ -64,6 +64,10 @@ class MakTil():
             return con.waterL
         elif ip == 3:
             return con.buildL
+        elif ip == 4:
+            return con.roadL
+        elif ip == 5:
+            return con.treeL
         else:
             lee = ""
             if PyP.db_Get(IK) == con.resto:

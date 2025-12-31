@@ -26,7 +26,6 @@ class Constance():
     global Rarrow
     global cartLO
     global mapdat
-    #global ANONbudI
     
 
     def __init__(self):
@@ -53,6 +52,7 @@ class Constance():
         self.waterL = Image.open("./GUI/water.png")
         self.buildL = Image.open("./GUI/buildings.jpg")
         self.roadL = Image.open("./GUI/roadrunner.png")
+        self.treeL = Image.open("./GUI/Tree.png")
         self.imageL = Image.open("./GUI/Minus.png")
         self.Larrow = Image.open("./GUI/Larrow.png")
         self.Rarrow = Image.open("./GUI/Rarrow.png")
@@ -62,6 +62,7 @@ class Constance():
         self.RbudI = Image.open("./GUI/MenuMan.png")
         self.EbudI = Image.open("./GUI/eventbud.png")
         self.SampBud = Image.open("./GUI/EmptyButton.png")
+
         
         
         
