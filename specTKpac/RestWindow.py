@@ -26,6 +26,7 @@ class Cart():
             self.cart[q] += 1
         else:
             self.cart[q] = 1
+        print(self.cart)
     
     def sub(self,refnum):
         q = refnum
@@ -38,34 +39,35 @@ class Cart():
             pass
         
     def induce(self):
-        self.manget = tk.Tk()
+        self.manget = tk.Toplevel(self.itsself.tree)
         self.manget.config(bg = con.grey)
         q = tk.Label(self.manget,text = "CART",fg = con.purp,bg = con.grey,font = ("Comic Sans MS",18,"bold"))
         S = ""
+        print(self.cart)
         for i in list(self.cart.keys()):
             for j in self.menu:
                 if i == j[0]:
-                    S += j[1] + "        " + str(j[2]*self.cart[i]) +"\n"
+                    S += j[1] + "        " + str(j[2])+"*"+str(self.cart[i]) +"\n"
                 else:
                     pass
         s = tk.Label(self.manget,text = S,fg = con.purp,bg = con.bgrey,font = ("Comic Sans MS",14,"italic"))
-        self.bute = tk.Button(self.manget,text = "PLACE ORDER",command = self.finnish(S),fg = con.purp,bg = con.bgrey,font = ("Comic Sans MS",18,"italic"))
+        self.bute = tk.Button(self.manget,text = "PLACE ORDER",command =  lambda:self.finnish(S),fg = con.purp,bg = con.bgrey,font = ("Comic Sans MS",18,"italic"))
         q.pack()
         s.pack()
         self.bute.pack()
         self.manget.mainloop()
         
     def finnish(self,S):
-        W = SBR.Mes("Please Enter Your Address")
+        W = SBR.Mes("Please Enter Your Address",True,self.itsself.tree)
         ad = W.start()
         Order = "An Order has been placed with contents:\n" + S
-        IK = PyP.Rest_IK_get()
-        PyP.send_Request(IK,Order,ad)
+        IK = self.PyP.Rest_IK_get(self.itsself.name)
+        self.PyP.send_Request(IK,Order,ad)
         SBR.yay("Order Placed")
-        self.itsself.destroy()
-        self.manget.destroy()
+        #self.itsself.destroy()
+        #self.manget.destroy()
         
-class Resta(tk.Tk):
+class Resta(tk.Toplevel):
     global menu
     global placeholder
     global cart
@@ -74,27 +76,29 @@ class Resta(tk.Tk):
     global Rbud
     global Cbud
 
-    def __init__(self,name = "wee",PyP = 0):
-        #self.menu = PyP.fetch_Resto_men(PyP.IK_get(name,con.resto))
-        self.menu = []
+    def __init__(self,name = "wee",PyP = 0,tree = 0):
+        self.tree = tree
+        self.PyP=PyP
+        self.name = name
+        self.menu = self.PyP.fetch_Resto_men(self.PyP.IK_get(name,con.resto))
         self.placeholder = 0
-        super().__init__()
-        self.cart = Cart(PyP,self.menu,self)
+        super().__init__(tree)
+        self.cart = Cart(self.PyP,self.menu,self)
         self.title(name)
         self.config(background = con.grey)
         self.geometry("1300x450")
         self.resizable(False,False)
-        #self.creat_menu()
+
         self.MList = []
-        self.test_buddon()
+        self.creat_menu()
         self.plac_button()
         
         q = ImageTk.PhotoImage(con.Larrow)
         s = ImageTk.PhotoImage(con.Rarrow)
         t = ImageTk.PhotoImage(con.cartLO)
-        self.Lbud = tk.Button(self,image = q,command = lambda : self.movtest(),bg=con.bgrey,border = 0,height = 395)#,width = 62,height = 250
+        self.Lbud = tk.Button(self,image = q,command = lambda : self.movL(),bg=con.bgrey,border = 0,height = 395)#,width = 62,height = 250
         self.Rbud = tk.Button(self,image = s,command = lambda : self.movR(),bg=con.bgrey,border = 0,height = 395)
-        self.Cbud = tk.Button(self,image = t,command = lambda : self.movtest(),bg=con.bgrey,border = 0,height = 45,width = 1295)
+        self.Cbud = tk.Button(self,image = t,command = lambda : self.cart.induce(),bg=con.bgrey,border = 0,height = 45,width = 1295)
         self.Cbud.image = s 
         self.Lbud.image = q
         self.Rbud.image = t
@@ -111,9 +115,9 @@ class Resta(tk.Tk):
         self.MList = []
         for i in range(self.placeholder,self.placeholder+12):
             try:
-                self.MList.append(bfr.MBlock(self,self.menu[i][1],self.menu[i][2],self.menu[i][0],self.menu[i][3]))
+                self.MList.append(SBR.MBlock(self,self.menu[i][1],self.menu[i][2],self.menu[i][0],self.menu[i][3],self.cart))
             except:
-                self.MList.append(bfr.MBlock(self,"","","",""))
+                self.MList.append(SBR.MBlock(self,"","","",""))
     
     def plac_button(self):
         self.MList[0].place(x=50,y=0)
@@ -132,19 +136,6 @@ class Resta(tk.Tk):
             self.plac_button()
         else:
             pass
-    
-    def movtest(self):
-        for i in self.MList:
-            i.destroy()
-        self.MList = []
-        self.test_buddon("wifenloof")
-        self.plac_button()
-        pass
-    
-    def test_buddon(self,q = "whenimetcha"):
-        for i in range(8):
-            self.MList.append(SBR.MBlock(self,q,500,1,"b",self.cart)) 
-        pass
         
     def movL(self):
         if self.placeholder != 0:

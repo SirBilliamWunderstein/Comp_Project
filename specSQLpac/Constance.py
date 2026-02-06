@@ -25,7 +25,7 @@ class Constance():
     global Larrow
     global Rarrow
     global cartLO
-    #global ANONbudI
+    global mapdat
     
 
     def __init__(self):
@@ -36,46 +36,33 @@ class Constance():
         self.eve = "EventDB"
         self.resto = "RestaurantDB"
         self.reqb = "DeliverRequestDB"
+        self.mapdat = "MapFileDatabase"
         self.success = "waids"
         self.failed = "sdiaw"
         self.grey = "#343434"
-        self.purp = "#6a1aa6"
+        self.purp = "#00FFFF"  #"#6a1aa6"
         self.bgrey = "#262626"
         self.grassL = {}
-        self.waterL = {}
-        self.buildL = {}
 
     def initimg(self):
         self.tkplus = Image.open("./GUI/Plus.png")
         self.tkminus = Image.open("./GUI/Minus.png")
-        self.grassL[1] = Image.open("./GUI/Minus.png")
-        self.grassL[2] = Image.open("./GUI/Minus.png")
-        self.grassL[3] = Image.open("./GUI/Minus.png")
-        self.grassL[4] = Image.open("./GUI/Minus.png")
-        self.grassL[5] = Image.open("./GUI/Minus.png") 
-        self.waterL[1] = Image.open("./GUI/Minus.png")
-        self.waterL[2] = Image.open("./GUI/Minus.png")
-        self.waterL[3] = Image.open("./GUI/Minus.png")
-        self.waterL[4] = Image.open("./GUI/Minus.png")
-        self.waterL[5] = Image.open("./GUI/Minus.png")
-        self.buildL[1] = Image.open("./GUI/Minus.png")
-        self.buildL[2] = Image.open("./GUI/Minus.png")
-        self.buildL[3] = Image.open("./GUI/Minus.png")
-        self.buildL[4] = Image.open("./GUI/Minus.png")
-        self.buildL[5] = Image.open("./GUI/Minus.png")
-        self.buildL[6] = Image.open("./GUI/Minus.png")
-        self.buildL[7] = Image.open("./GUI/Minus.png")
-        self.buildL[8] = Image.open("./GUI/Minus.png")
-        self.buildL[9] = Image.open("./GUI/Minus.png")
-        self.buildL[10] = Image.open("./GUI/Minus.png")
+        self.grassL[0] = Image.open("./GUI/grass.jpeg")
+        self.grassL[1] = Image.open("./GUI/grass2.png")
+        self.waterL = Image.open("./GUI/water.png")
+        self.buildL = Image.open("./GUI/buildings.jpg")
+        self.roadL = Image.open("./GUI/roadrunner.png")
+        self.treeL = Image.open("./GUI/Tree.png")
+        self.imageL = Image.open("./GUI/Minus.png")
         self.Larrow = Image.open("./GUI/Larrow.png")
         self.Rarrow = Image.open("./GUI/Rarrow.png")
         self.cartLO = Image.open("./GUI/CartLO.png")
-        self.rIc = Image.open("./GUI/Minus.png")
-        self.eIc = Image.open("./GUI/Minus.png")
-        self.RbudI = Image.open("./GUI/Minus.png")
-        self.EbudI = Image.open("./GUI/Minus.png")
-        #self.ANONbudI = Image.open("./GUI/Minus.png")
+        self.rIc = Image.open("./GUI/resta.jpg")
+        self.eIc = Image.open("./GUI/even.jpg")
+        self.RbudI = Image.open("./GUI/MenuMan.png")
+        self.EbudI = Image.open("./GUI/eventbud.png")
+        self.SampBud = Image.open("./GUI/EmptyButton.png")
+
         
         
         

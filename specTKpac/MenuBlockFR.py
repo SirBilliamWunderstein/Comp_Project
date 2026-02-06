@@ -37,7 +37,9 @@ class MBlock(tk.Frame):
         self.pricL = tk.Label(self,text=str(self.pric) + "₹",fg = con.purp,bg=con.bgrey,font = ("Comic Sans MS",18,"bold"),borderwidth=2,relief = "sunken")
         self.catL = tk.Label(self,text=str(self.cat),fg = con.purp,bg=con.bgrey,font = ("Comic Sans MS",14,"bold"),borderwidth=2,relief = "sunken")
         self.adb = tk.Button(self,image = self.plus,command = lambda : self.place_cart(),border = 1,bg=con.bgrey,relief = tk.RAISED)
+        self.adb.image = self.plus
         self.subb = tk.Button(self,image = self.minus,command = lambda : self.rem_cart(),border = 1,bg=con.bgrey,relief = tk.RAISED)
+        self.subb.image = self.minus
 
         self.subb.place(relx = 0.9,rely = 0.75,anchor = tk.CENTER)
         self.adb.place(relx = 0.6,rely = 0.75,anchor = tk.CENTER)

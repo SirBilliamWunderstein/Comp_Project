@@ -1,0 +1,32 @@
+czntxqllxqpwsrgs:An Order has been placed with contents:
+Spciy Bean Tacos        270*16
+
+czntxqllxqpwsrgs:An Order has been placed with contents:
+Cheese Corn Dip        90*1
+
+czntxqllxqpwsrgs:An Order has been placed with contents:
+Nachos Grande        260*1
+Loaded Fries With Jalapenos        230*1
+Cheese Corn Dip        90*1
+Tacos Al Pastor        320*1
+Spciy Bean Tacos        270*20
+Churros With Chocolate        220*3
+Lime Margarita Mocktail        180*2
+Grilled Chicken Chimichanga        430*1
+Mexican Rice Bowl        370*1
+Corn Elote        210*1
+
+czntxqllxqpwsrgs:An Order has been placed with contents:
+Loaded Fries With Jalapenos        230*2
+Veggie Burrito        310*1
+
+pxyztxchipzymxnv:An Order has been placed with contents:
+Garlic Parmesan Breadsticks        180*1
+Pasta Alfredo        420*1
+Focaccia Bread        150*1
+Espresso Shot        120*1
+Minestrone Soup        190*1
+Garlic Shrimp Linguinie        470*1
+Ceasar Salad        250*1
+Margherita Pizza        390*1
+

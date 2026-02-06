@@ -10,8 +10,13 @@ class Mes():
     global sub
     global root
     
-    def __init__(self,q):
-        self.root = tk.Tk()
+    def __init__(self,q,top = False,win = None ):
+        if top == False:
+            self.root = tk.Tk()
+        else:
+            self.root = tk.Toplevel(win)
+        
+        
         self.root.config(bg = con.grey)
         self.inp = tk.StringVar()
         self.root.title("Input window")
@@ -24,8 +29,10 @@ class Mes():
         
         self.sub = tk.Button(self.root,text= "submit",fg = con.purp,command = self.root.destroy,bg = con.bgrey,font = ("Comic Sans MS",14,"bold"))
         self.sub.pack()
+
     
     def start(self):
         self.root.mainloop()
+        print("lol")
         return self.inp.get()
     
