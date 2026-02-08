@@ -18,7 +18,7 @@ class PyperedPype():
         try:
             self.portbay = dcp.connect(user = Retriever,host = "localhost",password = pas,auth_plugin='mysql_native_password')
         except:
-            pass
+            LPS.yay("Username/Password Incorrect")
 
         self.ship = self.portbay.cursor()
         self.infodat = [Retriever,pas]

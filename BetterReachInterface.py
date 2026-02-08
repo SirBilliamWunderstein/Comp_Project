@@ -12,6 +12,7 @@ global key_app
 def Login():
     Q = SBR.Mes("Please enter your username:")
     x = Q.start()
+    global PyP
 
     R = SBR.Mes("Please Enter your password:")
     y = R.start()
@@ -22,13 +23,23 @@ def Login():
     
     port = dcp.connect(user = "root",host = "localhost",password = "mysql",auth_plugin='mysql_native_password')
     ship = port.cursor()
-    ship.execute("CREATE USER '{}'@'localhost' IDENTIFIED WITH mysql_native_password BY '{}';".format(x,y))
+    try:
+        ship.execute("CREATE USER '{}'@'localhost' IDENTIFIED WITH mysql_native_password BY '{}';".format(x,y))
+    except:
+        PyP = DIU.PyperedPype(x,y)
+        return 0
+    LL = [con.resto,con.eve,con.reqb,con.anon]
+    for i in LL:
+        ship.execute("use {}".format(i,))
+        ship.execute("GRANT ALL ON {}.* TO '{}'@'localhost';".format(i,x))
+        ship.execute("flush privileges;")
+        port.commit()
     port.commit()
     port.close()
     #CREATE USER 'sammy'@'localhost' IDENTIFIED BY 'password';
-    
     PyP = DIU.PyperedPype(x,y)
 
+global con
 con = DIU.Constance()
 
 try:
@@ -36,7 +47,7 @@ try:
     Q = pickle.load(binfil)
     PyP = DIU.PyperedPype(Q[0],Q[1])
     binfil.close()
-except EOFError:
+except FileNotFoundError:
     Login()
 
 #PyP= 0

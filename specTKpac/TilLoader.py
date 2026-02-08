@@ -27,6 +27,8 @@ class MakTil():
         self.bdit = {}
         self.imageL = {}
         
+        print(x,y)
+        
         binfil = open("./bindump/mapdat/"+self.pos + ".dat","rb")
         q = dex.load(binfil)
         print(q)

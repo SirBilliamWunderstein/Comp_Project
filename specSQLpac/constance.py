@@ -26,11 +26,10 @@ class Constance():
     global Rarrow
     global cartLO
     global mapdat
+    global dblis
     
 
     def __init__(self):
-        self.incorrect_userpass = "Avienfvi49gdniana1"
-        self.lakmismatch = "uivhewndiki2nvuji4"
         self.lak = "LooselyAuthenticatedkeyDB"
         self.anon = "AnonymousDB"
         self.eve = "EventDB"
@@ -43,6 +42,7 @@ class Constance():
         self.purp = "#00FFFF"  #"#6a1aa6"
         self.bgrey = "#262626"
         self.grassL = {}
+        self.dblis = {self.resto:"rlist",self.eve:"elist",self.anon:"anonlist"}
 
     def initimg(self):
         self.tkplus = Image.open("./GUI/Plus.png")

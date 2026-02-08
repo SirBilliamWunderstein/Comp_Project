@@ -101,6 +101,7 @@ class infbox(tk.Canvas):
         elif typ == 5:
             desc += "TREE"
         
+        self.TleInsertion("")
         self.TestInsertion(desc)
         #self.TleInsertion(" ")
         self.buttonman(4)

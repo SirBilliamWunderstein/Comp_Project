@@ -8,7 +8,7 @@ con = const.Constance()
 class PypedPyper():
     global portbay
     global ship
-    global infodat
+    global infodat # = [username str,lak str,pas str,restoIK list,eventIK list,anonymousIK list]
     global lak
 
     def __init__(self,use,pas,lak):
@@ -19,7 +19,7 @@ class PypedPyper():
         if portbay.is_connected():
             print("Eshtablished connection successfully")  #  REPLACE LATER WITH FUNCTIONALITY MAYBE 
         self.ship = portbay.cursor()
-        ship.execute("select * from listak where user = {}".format(use,))
+        ship.execute("select * from listak where user = '{}'".format(use,))
         Q = self.ship.fetchall()
         if Q == None:
             return con.lakmismatch # cant use return here, find alternatives
@@ -51,7 +51,7 @@ class PypedPyper():
         q = IK + user
         self.ship.execute("use {}".format(con.reqb))
         self.ship.execute("drop table {}".format(q,))
-        self.ship.execute("delete from MesReq where IK = {} and user = {}".format(IK,user))
+        self.ship.execute("delete from MesReq where IK = '{}' and user = '{}'".format(IK,user))
         self.portbay.commit()
 
     def resto_create(self,Title,menu,loc,opclo,desc): 
@@ -64,24 +64,36 @@ class PypedPyper():
             if i[0] == Q:
                 Q = self.IK_Get()
                 break
-        self.ship.execute("insert into rlist values({},{},{},{},{})".format(Q,Title,loc.get(),opclo,desc)) 
-        self.infodat[2].append(Q)
+        self.ship.execute("insert into rlist values('{}','{}','{}','{}','{}')".format(Q,Title,loc.get(),opclo,desc)) 
+        self.infodat[3].append(Q)
 
-        self.ship.execute("create table {}(id int,food str,price int,cat varchar(1))".format(Q,))
+        self.ship.execute("create table {}(id int,food str,price int,category varchar(1))".format(Q,))
         self.portbay.commit()
-        S = list(menu.values())
+        S = list(menu.keys())
         for i in range(len(S)):
-            self.ship.execute("insert into {} values({},{},{},{})".format(Q,i+1,S[i],menu[S[i]][0],menu[S[i]][1]))
+            self.ship.execute("insert into {} values({},'{}',{},'{}')".format(Q,i+1,S[i],menu[S[i]][0],menu[S[i]][1]))
             self.portbay.commit()
 
         binfil = open("../bindump/LAK.dat","wb")
-        dex.dump(self.infodat(),binfil)
+        dex.dump(self.infodat,binfil)
         binfil.close()
 
         return Q
     
     def Standard_column_updater(self,db,tab,col,iden,ccol,dat):
         self.ship.execute("use {}".format(db))
+        try:
+            iden += 1
+            iden -= 1
+        except:
+            iden = "'" + iden + "'"
+        
+        try:
+            dat += 1
+            dat -= 1
+        except:
+            dat = "'" + dat + "'"
+        
         self.ship.execute("update {} set {} = {} where {} = {}".format(tab,ccol,dat,col,iden))
         self.portbay.commit()
 
@@ -99,7 +111,7 @@ class PypedPyper():
 
         if db == con.anon:
             ss = rd.randint(-127,128)
-            self.ship.execute("update Uplist set RGI = {} where IK = {}".format(ss,IK))
+            self.ship.execute("update Uplist set RGI = {} where IK = '{}'".format(ss,IK))
 
     def eve_Create(self,title,loc,picloc,date,desc):
         self.ship.execute("use {}".format(con.eve,))
@@ -111,7 +123,7 @@ class PypedPyper():
             if i[0] == Q:
                 Q = self.IK_Get()
                 break
-        self.ship.execute("insert into elist values({},{},{},{},{})",format(Q,title,loc.get(),date,desc)) # make loc.get
+        self.ship.execute("insert into elist values('{}','{}','{}',{},'{}')",format(Q,title,loc.get(),date,desc)) # make loc.get
         self.portbay.commit()
 
         self.ship.execute("create table {}(bina int)".format(Q,))
@@ -122,14 +134,14 @@ class PypedPyper():
             self.ship.execute("insert into {} values({})".format(Q,i))
             self.portbay.commit()
 
-        self.infodat[3].append(Q)
-        binfil = open("../bindump/LAK.dat","wb")
-        dex.dump(self.infodat(),binfil)
+        self.infodat[4].append(Q)
+        binfil = open("./bindump/LAK.dat","wb")
+        dex.dump(self.infodat,binfil)
         binfil.close()
 
         return Q
     
-    def Anonym_Create(self,Title,iconloc,loc,desc):  # housing,local business,breweries,etc
+    def Anonym_Create(self,Title,iconloc,loc,cont,desc):  # housing,local business,breweries,etc
         self.ship.execute("use {}".format(con.anon,))
         Q = self.IK_Get()
 
@@ -139,7 +151,7 @@ class PypedPyper():
             if i[0] == Q:
                 Q = self.IK_Get()
                 break
-        self.ship.execute("insert into Anonlist values({},{},{},{})".format(Q,Title,loc.get(),desc))
+        self.ship.execute("insert into Anonlist values('{}','{}',{},'{}')".format(Q,Title,loc,cont,desc))
         self.portbay.commit()
         self.ship.execute("create table {} values(bina int)".format(Q,))
         self.portbay.commit()
@@ -150,6 +162,11 @@ class PypedPyper():
             self.ship.execute("insert into {} values({})".format(Q,i))
             self.portbay.commit()
         icofil.close()
+        
+        self.infodat[5].append(Q)
+        binfil = open("./bindump/LAK.dat","wb")
+        dex.dump(self.infodat,binfil)
+        binfil.close()
         
         return Q
     

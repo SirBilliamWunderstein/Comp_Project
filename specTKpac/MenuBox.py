@@ -2,6 +2,7 @@ import tkinter as tk
 import specSQLpac as TNR
 import specTKpac as SBR
 import os
+import sys
 
 con = TNR.Constance()
 
@@ -19,7 +20,7 @@ class MenuBox(tk.Frame):
         super().__init__(self.tree,width = 300,height = 150,bg = con.grey)
         
         self.user = tk.Label(self,text = self.PyP.infodat[0],fg = con.purp,bg = con.grey,font = ("Comic Sans MS",18,"bold"))
-        self.logout = tk.Button(self,text = "logout",fg = con.purp,bg = con.bgrey,font = ("Comic Sans MS",14,"bold"))
+        self.logout = tk.Button(self,text = "logout",command = self.Logout,fg = con.purp,bg = con.bgrey,font = ("Comic Sans MS",14,"bold"))
         self.reg1 = tk.Button(self,text = "reg1",command = self.regionreload,fg = con.purp,bg = con.bgrey,font = ("Comic Sans MS",14,"bold"))
         
         self.user.place(x = 10,y = 10)
@@ -28,9 +29,9 @@ class MenuBox(tk.Frame):
         
         self.place(x = 0,y = 0)
     
-    def logout(self):
+    def Logout(self):
         os.remove("./bindump/ret.dat")
-        #system.exit(0)
+        sys.exit(0)
     
     def regionreload(self):
         self.key_app.canvas.destroy()
